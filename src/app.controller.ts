@@ -31,7 +31,22 @@ export class AppController {
       }
     }
 
-  
+    @Get('regis-object-cache')
+    async getObject() {
+      var profile = await this.cacheManager.get<Profile>('my-object')
+      if(profile) {
+        return {
+          data: profile,
+          loadsFrom: 'redis cache'
+        }
+      }
+
+      await this.cacheManager.set<Profile>('my-object', this.fakeModel, {ttl:300})
+      return {
+        data: this.fakeModel,
+        loadsFrom: 'fake database'
+      }
+    }
 
 
 
