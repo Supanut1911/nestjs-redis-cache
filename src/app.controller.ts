@@ -48,6 +48,11 @@ export class AppController {
       }
     }
 
+    @Get('delete')
+    async deleteCache() {
+      // await this.cacheManager.del('my-object')
+      await this.cacheManager.reset()
+    }
 
 
 }
